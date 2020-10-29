@@ -14,7 +14,7 @@ Intended to allow easier navigation through the implemented schema. Could be for
 ## Installation
 
 ```shell
-npm run install -D gql-string-to-object
+npm install -D gql-string-to-object
 ```
 
 ## Example implementation
