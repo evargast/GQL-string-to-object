@@ -1,7 +1,7 @@
 {
   "name": "gql-string-to-object",
-  "version": "1.0.1",
-  "description": "Helper function to conver GQL string to objects!",
+  "version": "1.0.2",
+  "description": "Helper function to convert GQL strings to objects!",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
