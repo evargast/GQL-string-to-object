@@ -1,7 +1,7 @@
 {
-  "name": "simple-npm-module",
+  "name": "gql-string-to-object",
   "version": "1.0.0",
-  "description": "This is an NPM module! ",
+  "description": "Helper function to conver GQL string to objects!",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -12,19 +12,21 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --check \"./**/*.{ts,tsx,js,css,json,md}\"",
     "format:fix": "prettier --write  \"./**/*.{ts,tsx,js,css,json,md}\"",
+    "demo": "npm run demo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evargast/simple-npm-module.git"
+    "url": "git+https://github.com/evargast/GQL-string-to-object.git"
   },
-  "keywords": [],
+  "keywords": ["graphql", "parser", "string", "toObject", "jest", "schema", "testing"],
   "author": "Eduardo Vargas <eduardo@adobe.com>",
   "license": "ISC",
+  "type": "module",
   "bugs": {
-    "url": "https://github.com/evargast/simple-npm-module/issues"
+    "url": "https://github.com/evargast/GQL-string-to-object/issues"
   },
-  "homepage": "https://github.com/evargast/simple-npm-module#readme",
+  "homepage": "https://github.com/evargast/GQL-string-to-object#readme",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
@@ -37,8 +39,6 @@
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
-  "dependencies": {
-    "typescript": "^4.0.3"
-  },
+  "dependencies": {},
   "peerDependencies": {}
 }
