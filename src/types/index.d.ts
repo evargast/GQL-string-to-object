@@ -25,4 +25,5 @@ type Schema = {
 };
 
 type ReturnObject = { [key: string]: unknown };
-type RecursiveObject = { [key: string]: ReturnObject };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type RecursiveObject = { [key: string]: RecursiveObject };
