@@ -1,11 +1,13 @@
 /** Will convert a GraphQL schema into an key-value object
  * @params {schema} schema - GraphQL schema object
  * @params {string} targetType - [optional] return a specific type / interface rather than the whole schema
+ * @params {boolean} hideTypes - [optional, default = false] return {} as value instead of  "String", "Int", "ENUM", etc...
  * @params {boolean} minimizeEnum - [optional, default = true] whether ENUMs should be listed out or return "ENUM" instead
  */
 const schemaToObject = (
   schema: Schema,
   targetType?: string,
+  hideTypes = false,
   minimizeEnum = true
 ): ReturnObject => {
   const returnObj = {} as ReturnObject;
@@ -17,7 +19,7 @@ const schemaToObject = (
       schemaEntry.kind !== "SCALAR" &&
       !schemaEntry.name.includes("__")
     ) {
-      processEntry(types, schemaEntry, returnObj, minimizeEnum);
+      processEntry(types, schemaEntry, returnObj, hideTypes, minimizeEnum);
     }
   });
 
@@ -38,15 +40,20 @@ const processEntry = (
   dataSource: SchemaType[],
   schemaEntry: SchemaType,
   returnObj: ReturnObject,
+  hideTypes?: boolean,
   minimizeEnum?: boolean
 ) => {
   if (schemaEntry.kind === "ENUM") {
-    if (minimizeEnum) {
-      returnObj[schemaEntry.name] = schemaEntry.kind;
+    if (!hideTypes) {
+      if (minimizeEnum) {
+        returnObj[schemaEntry.name] = schemaEntry.kind;
+      } else {
+        returnObj[schemaEntry.name] = schemaEntry.enumValues?.map(
+          (enumEntry) => enumEntry.name
+        );
+      }
     } else {
-      returnObj[schemaEntry.name] = schemaEntry.enumValues?.map(
-        (enumEntry) => enumEntry.name
-      );
+      returnObj[schemaEntry.name] = {};
     }
   }
 
@@ -66,15 +73,21 @@ const processEntry = (
         }
 
         if (isOfTypeScalar) {
-          entry[entryField.name] = target;
+          entry[entryField.name] = hideTypes ? {} : target;
         } else {
           if (!returnObj[target]) {
-            processEntry(dataSource, getEntry(dataSource, target), returnObj);
+            processEntry(
+              dataSource,
+              getEntry(dataSource, target),
+              returnObj,
+              hideTypes,
+              minimizeEnum
+            );
           }
           entry[entryField.name] = returnObj[target];
         }
       } else {
-        entry[entryField.name] = entryField.type.name;
+        entry[entryField.name] = hideTypes ? {} : entryField.type.name;
       }
 
       returnObj[schemaEntry.name] = entry;
